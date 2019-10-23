@@ -1,6 +1,168 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/9",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/9/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/9/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/9/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/9",
+    "id": 511082728,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzMxMzQ2NDY3",
+    "number": 9,
+    "title": "Add test vectors and remove lingering TODOs.",
+    "user": {
+      "login": "chris-wood",
+      "id": 2172048,
+      "node_id": "MDQ6VXNlcjIxNzIwNDg=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2172048?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/chris-wood",
+      "html_url": "https://github.com/chris-wood",
+      "followers_url": "https://api.github.com/users/chris-wood/followers",
+      "following_url": "https://api.github.com/users/chris-wood/following{/other_user}",
+      "gists_url": "https://api.github.com/users/chris-wood/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/chris-wood/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/chris-wood/subscriptions",
+      "organizations_url": "https://api.github.com/users/chris-wood/orgs",
+      "repos_url": "https://api.github.com/users/chris-wood/repos",
+      "events_url": "https://api.github.com/users/chris-wood/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/chris-wood/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-10-23T05:27:53Z",
+    "updated_at": "2019-10-23T23:13:58Z",
+    "closed_at": "2019-10-23T23:13:57Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/9",
+      "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/9",
+      "diff_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/9.diff",
+      "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/9.patch"
+    },
+    "body": "The script I used for formatting the JSON vectors is here: https://gist.github.com/chris-wood/e4309b89491ea9483062eb95c4ca5dd7"
+  },
+  {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/8",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/8/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/8/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/8/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/8",
+    "id": 510750986,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzMxMDcwNjQx",
+    "number": 8,
+    "title": "Add missing mode parameters",
+    "user": {
+      "login": "blipp",
+      "id": 138279,
+      "node_id": "MDQ6VXNlcjEzODI3OQ==",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/138279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/blipp",
+      "html_url": "https://github.com/blipp",
+      "followers_url": "https://api.github.com/users/blipp/followers",
+      "following_url": "https://api.github.com/users/blipp/following{/other_user}",
+      "gists_url": "https://api.github.com/users/blipp/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/blipp/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/blipp/subscriptions",
+      "organizations_url": "https://api.github.com/users/blipp/orgs",
+      "repos_url": "https://api.github.com/users/blipp/repos",
+      "events_url": "https://api.github.com/users/blipp/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/blipp/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-10-22T15:53:26Z",
+    "updated_at": "2019-10-22T15:53:26Z",
+    "closed_at": null,
+    "author_association": "FIRST_TIME_CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/8",
+      "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/8",
+      "diff_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/8.diff",
+      "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/8.patch"
+    },
+    "body": "In Sections 6.3, 6.4, and 6.5 is seems like KeySchedule's mode parameter is missing."
+  },
+  {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/7",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/7/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/7/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/7/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/7",
+    "id": 500983428,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzIzMzQ0MDUy",
+    "number": 7,
+    "title": "Clarify pkI/pkIm usage",
+    "user": {
+      "login": "dwd",
+      "id": 224104,
+      "node_id": "MDQ6VXNlcjIyNDEwNA==",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/224104?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dwd",
+      "html_url": "https://github.com/dwd",
+      "followers_url": "https://api.github.com/users/dwd/followers",
+      "following_url": "https://api.github.com/users/dwd/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dwd/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dwd/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dwd/subscriptions",
+      "organizations_url": "https://api.github.com/users/dwd/orgs",
+      "repos_url": "https://api.github.com/users/dwd/repos",
+      "events_url": "https://api.github.com/users/dwd/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dwd/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-10-01T15:43:57Z",
+    "updated_at": "2019-10-22T15:45:12Z",
+    "closed_at": null,
+    "author_association": "FIRST_TIME_CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/7",
+      "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/7",
+      "diff_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/7.diff",
+      "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/7.patch"
+    },
+    "body": ""
+  },
+  {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/6",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
     "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/6/labels{/name}",
