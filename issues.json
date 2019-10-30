@@ -1,6 +1,108 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/11",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/11/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/11/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/11/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/11",
+    "id": 514543380,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzM0MTQzMDQw",
+    "number": 11,
+    "title": "Fix parameters in Single-Shot APIs",
+    "user": {
+      "login": "blipp",
+      "id": 138279,
+      "node_id": "MDQ6VXNlcjEzODI3OQ==",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/138279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/blipp",
+      "html_url": "https://github.com/blipp",
+      "followers_url": "https://api.github.com/users/blipp/followers",
+      "following_url": "https://api.github.com/users/blipp/following{/other_user}",
+      "gists_url": "https://api.github.com/users/blipp/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/blipp/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/blipp/subscriptions",
+      "organizations_url": "https://api.github.com/users/blipp/orgs",
+      "repos_url": "https://api.github.com/users/blipp/repos",
+      "events_url": "https://api.github.com/users/blipp/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/blipp/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-10-30T10:15:22Z",
+    "updated_at": "2019-10-30T22:44:25Z",
+    "closed_at": "2019-10-30T22:44:25Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/11",
+      "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/11",
+      "diff_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/11.diff",
+      "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/11.patch"
+    },
+    "body": "`OpenAuthPSK` was missing parameters, and the call to `SetupAuthPSKR` used `skI` instead of `pkI`."
+  },
+  {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/10",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/10/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/10/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/10/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/issues/10",
+    "id": 513370502,
+    "node_id": "MDU6SXNzdWU1MTMzNzA1MDI=",
+    "number": 10,
+    "title": "Link of reference [SECG] broken",
+    "user": {
+      "login": "blipp",
+      "id": 138279,
+      "node_id": "MDQ6VXNlcjEzODI3OQ==",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/138279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/blipp",
+      "html_url": "https://github.com/blipp",
+      "followers_url": "https://api.github.com/users/blipp/followers",
+      "following_url": "https://api.github.com/users/blipp/following{/other_user}",
+      "gists_url": "https://api.github.com/users/blipp/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/blipp/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/blipp/subscriptions",
+      "organizations_url": "https://api.github.com/users/blipp/orgs",
+      "repos_url": "https://api.github.com/users/blipp/repos",
+      "events_url": "https://api.github.com/users/blipp/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/blipp/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-10-28T15:16:05Z",
+    "updated_at": "2019-10-28T15:16:05Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "Hi, the link of reference “[SECG] Elliptic Curve Cryptography, Standards for Efficient Cryptography Group, ver. 2” seems broken. Instead of http://www.secg.org/download/aid-780/sec1-v2.pdf the following seems to work: https://secg.org/sec1-v2.pdf"
+  },
+  {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/9",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
     "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/9/labels{/name}",
@@ -97,9 +199,9 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2019-10-22T15:53:26Z",
-    "updated_at": "2019-10-22T15:53:26Z",
+    "updated_at": "2019-10-30T22:29:35Z",
     "closed_at": null,
-    "author_association": "FIRST_TIME_CONTRIBUTOR",
+    "author_association": "CONTRIBUTOR",
     "pull_request": {
       "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/8",
       "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/8",
