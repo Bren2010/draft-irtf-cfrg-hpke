@@ -72,7 +72,7 @@ Table of Contents
    5.  Cryptographic Dependencies  . . . . . . . . . . . . . . . . .   5
      5.1.  DH-Based KEM  . . . . . . . . . . . . . . . . . . . . . .   6
    6.  Hybrid Public Key Encryption  . . . . . . . . . . . . . . . .   7
-     6.1.  Creating an Encryption Context  . . . . . . . . . . . . .   8
+     6.1.  Creating the Encryption Context . . . . . . . . . . . . .   8
      6.2.  Encryption to a Public Key  . . . . . . . . . . . . . . .  11
      6.3.  Authentication using a Pre-Shared Key . . . . . . . . . .  11
      6.4.  Authentication using an Asymmetric Key  . . . . . . . . .  12
@@ -424,10 +424,10 @@ Internet-Draft                    HPKE                     November 2019
    The procedures described in this session are laid out in a Python-
    like pseudocode.  The algorithms in use are left implicit.
 
-6.1.  Creating an Encryption Context
+6.1.  Creating the Encryption Context
 
-   The variants of HPKE defined in this document share a common
-   mechanism for translating the protocol inputs into an encryption
+   The variants of HPKE defined in this document share a common key
+   schedule that translates the protocol inputs into an encryption
    context.  The key schedule inputs are as follows:
 
    o  "pkR" - The receiver's public key

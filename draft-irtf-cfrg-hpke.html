@@ -289,7 +289,7 @@ ul.toc li {
 <link href="#rfc.section.5" rel="Chapter" title="5 Cryptographic Dependencies">
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 DH-Based KEM">
 <link href="#rfc.section.6" rel="Chapter" title="6 Hybrid Public Key Encryption">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Creating an Encryption Context">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Creating the Encryption Context">
 <link href="#rfc.section.6.2" rel="Chapter" title="6.2 Encryption to a Public Key">
 <link href="#rfc.section.6.3" rel="Chapter" title="6.3 Authentication using a Pre-Shared Key">
 <link href="#rfc.section.6.4" rel="Chapter" title="6.4 Authentication using an Asymmetric Key">
@@ -413,7 +413,7 @@ ul.toc li {
 </li>
 </ul><li>6.   <a href="#rfc.section.6">Hybrid Public Key Encryption</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Creating an Encryption Context</a>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Creating the Encryption Context</a>
 </li>
 <li>6.2.   <a href="#rfc.section.6.2">Encryption to a Public Key</a>
 </li>
@@ -694,9 +694,9 @@ def AuthDecap(enc, skR, pkI):
 <p id="rfc.section.6.p.5">A &#8220;context&#8221; encodes the AEAD algorithm and key in use, and manages the nonces used so that the same nonce is not used with multiple plaintexts.</p>
 <p id="rfc.section.6.p.6">The procedures described in this session are laid out in a Python-like pseudocode.  The algorithms in use are left implicit.</p>
 <h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> <a href="#creating-an-encryption-context" id="creating-an-encryption-context">Creating an Encryption Context</a>
+<a href="#rfc.section.6.1">6.1.</a> <a href="#creating-the-encryption-context" id="creating-the-encryption-context">Creating the Encryption Context</a>
 </h1>
-<p id="rfc.section.6.1.p.1">The variants of HPKE defined in this document share a common mechanism for translating the protocol inputs into an encryption context.  The key schedule inputs are as follows:</p>
+<p id="rfc.section.6.1.p.1">The variants of HPKE defined in this document share a common key schedule that translates the protocol inputs into an encryption context. The key schedule inputs are as follows:</p>
 <p></p>
 
 <ul>
