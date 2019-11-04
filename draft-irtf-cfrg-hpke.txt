@@ -997,7 +997,7 @@ Internet-Draft                    HPKE                     November 2019
 
    [SECG]     "Elliptic Curve Cryptography, Standards for Efficient
               Cryptography Group, ver. 2", n.d.,
-              <http://www.secg.org/download/aid-780/sec1-v2.pdf>.
+              <https://secg.org/sec1-v2.pdf>.
 
 
 
