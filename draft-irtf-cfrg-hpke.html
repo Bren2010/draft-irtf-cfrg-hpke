@@ -301,6 +301,8 @@ ul.toc li {
 <link href="#rfc.section.8.2" rel="Chapter" title="8.2 Key Derivation Functions (KDFs)">
 <link href="#rfc.section.8.3" rel="Chapter" title="8.3 Authenticated Encryption with Associated Data (AEAD) Functions">
 <link href="#rfc.section.9" rel="Chapter" title="9 Security Considerations">
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 Metadata Protection">
+<link href="#rfc.section.9.2" rel="Chapter" title="9.2 Designated-Verifier Signature">
 <link href="#rfc.section.10" rel="Chapter" title="10 Message Encoding">
 <link href="#rfc.section.11" rel="Chapter" title="11 IANA Considerations">
 <link href="#rfc.section.11.1" rel="Chapter" title="11.1 KEM Identifiers">
@@ -435,7 +437,11 @@ ul.toc li {
 </li>
 </ul><li>9.   <a href="#rfc.section.9">Security Considerations</a>
 </li>
-<li>10.   <a href="#rfc.section.10">Message Encoding</a>
+<ul><li>9.1.   <a href="#rfc.section.9.1">Metadata Protection</a>
+</li>
+<li>9.2.   <a href="#rfc.section.9.2">Designated-Verifier Signature</a>
+</li>
+</ul><li>10.   <a href="#rfc.section.10">Message Encoding</a>
 </li>
 <li>11.   <a href="#rfc.section.11">IANA Considerations</a>
 </li>
@@ -865,23 +871,27 @@ def SetupAuthPSKR(enc, skR, info, psk, pskID, pkI):
 </ul>
 <p id="rfc.section.6.6.p.4">All of these fields except the sequence number are constant.  The sequence number is used to provide nonce uniqueness: The nonce used for each encryption or decryption operation is the result of XORing the base nonce with the current sequence number, encoded as a big-endian integer of the same length as the nonce.  Implementations MAY use a sequence number that is shorter than the nonce (padding on the left with zero), but MUST return an error if the sequence number overflows.</p>
 <p id="rfc.section.6.6.p.5">Each encryption or decryption operation increments the sequence number for the context in use.  A given context SHOULD be used either only for encryption or only for decryption.</p>
-<p id="rfc.section.6.6.p.6">It is up to the application to ensure that encryptions and decryptions are done in the proper sequence, so that the nonce values used for encryption and decryption line up.</p>
+<p id="rfc.section.6.6.p.6">It is up to the application to ensure that encryptions and decryptions are done in the proper sequence, so that the nonce values used for encryption and decryption line up.  If a Seal or Open operation would cause the <samp>seq</samp> field to wrap, then the implementation MUST return an error.</p>
 <pre>
-[[ TODO: Check for overflow, a la TLS ]]
 def Context.Nonce(seq):
   encSeq = encode_big_endian(seq, len(self.nonce))
   return xor(self.nonce, encSeq)
 
+def Context.IncrementSeq():
+  if self.seq &gt;= (1 &lt;&lt; Nn) - 1:
+    return NonceOverflowError
+  self.seq += 1
+
 def Context.Seal(aad, pt):
   ct = Seal(self.key, self.Nonce(self.seq), aad, pt)
-  self.seq += 1
+  self.IncrementSeq()
   return ct
 
 def Context.Open(aad, ct):
   pt = Open(self.key, self.Nonce(self.seq), aad, ct)
   if pt == OpenError:
     return OpenError
-  self.seq += 1
+  self.IncrementSeq()
   return pt
 </pre>
 <h1 id="rfc.section.7">
@@ -1039,7 +1049,21 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <h1 id="rfc.section.9">
 <a href="#rfc.section.9">9.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.9.p.1">[[ TODO ]]</p>
+<p id="rfc.section.9.p.1">The general security properties of HPKE are described in <a href="#security-properties" class="xref">Section 3</a>.  In this section, we consider a security issue that may arise in practice and an advanced use case.</p>
+<h1 id="rfc.section.9.1">
+<a href="#rfc.section.9.1">9.1.</a> <a href="#metadata-protection" id="metadata-protection">Metadata Protection</a>
+</h1>
+<p id="rfc.section.9.1.p.1">The authenticated modes of HPKE (PSK, Auth, AuthPSK) require that the receiver know what key material to use for the initiator.  This can be signaled in applications by sending the PSK ID (<samp>pskID</samp> above) and/or the initiator&#8217;s public key (<samp>pkI</samp>).  However, these values themselves might be considered sensitive, since in a given application context, they might identify the initiator.</p>
+<p id="rfc.section.9.1.p.2">An application that wishes to protect these metadata values without requiring further provisioning of keys can use an additional instance of HPKE, using the unauthenticated base mode.  Where the application might have sent <samp>(pskID, pkI, enc, ciphertext)</samp> before, it would now send (enc2, ciphertext2, enc, ciphertext), where <samp>(enc2, ciphertext2)</samp> represent the encryption of the <samp>pskID</samp> and <samp>pkI</samp> values.</p>
+<p id="rfc.section.9.1.p.3">The cost of this approach is an additional KEM operation each for the sender and the receiver.  A potential lower-cost approach (involving only symmetric operations) would be available if the nonce-protection schemes in <a href="#BNT19" class="xref">[BNT19]</a> could be extended to cover other metadata.  However, this construction would require further analysis.</p>
+<h1 id="rfc.section.9.2">
+<a href="#rfc.section.9.2">9.2.</a> <a href="#designated-verifier-signature" id="designated-verifier-signature">Designated-Verifier Signature</a>
+</h1>
+<p id="rfc.section.9.2.p.1">The Auth and AuthPSK modes HPKE can be used to construct a lightweight &#8220;designated-verifier signature&#8221; scheme <a href="#JKR96" class="xref">[JKR96]</a>, in the sense that the message is authenticated as coming from the initiator, but the only party who can verify the authentication is the receiver (the holder of <samp>skR</samp>).</p>
+<p id="rfc.section.9.2.p.2">To create such a signature, the initator simply performs a normal HPKE setup in the proper mode, and calls the Seal method on the resulting context with an empty plaintext value and the content to be signed as AAD.  This produces an encoded key <samp>enc</samp> and a ciphertext value that contains only the AAD tag.</p>
+<p id="rfc.section.9.2.p.3">For example, using DHKEM-X25519 and AES-128-GCM, this would produce a 48-byte signature comprising a 32-byte ephemeral X25519 key and a 16-byte GCM tag.</p>
+<p id="rfc.section.9.2.p.4">To verify such a signature, the receiver performs the corresponding HPKE setup and calls Open with the provided ciphertext.  If the AEAD authentication passes, then the signature is valid.</p>
+<p id="rfc.section.9.2.p.5">This scheme re-uses the authentication scheme underlying the AEAD algorithm in use, while using the KEM to establish a one-time authentication key from a pair of KEM public keys.</p>
 <h1 id="rfc.section.10">
 <a href="#rfc.section.10">10.</a> <a href="#message-encoding" id="message-encoding">Message Encoding</a>
 </h1>
@@ -1134,6 +1158,10 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <td class="top">"<a>Public Key Cryptography for the Financial Services Industry -- Key Agreement and Key Transport Using Elliptic Curve Cryptography</a>", n.d..</td>
 </tr>
 <tr>
+<td class="reference"><b id="BNT19">[BNT19]</b></td>
+<td class="top">"<a href="http://dx.doi.org/10.1007/978-3-030-26948-7_9">Nonces Are Noticed: AEAD Revisited</a>", n.d..</td>
+</tr>
+<tr>
 <td class="reference"><b id="fiveG">[fiveG]</b></td>
 <td class="top">"<a href="https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3169">Security architecture and procedures for 5G System</a>", n.d..</td>
 </tr>
@@ -1159,6 +1187,10 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <tr>
 <td class="reference"><b id="ISO">[ISO]</b></td>
 <td class="top">"<a>ISO/IEC 18033-2, Information Technology - Security Techniques - Encryption Algorithms - Part 2 -- Asymmetric Ciphers</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="JKR96">[JKR96]</b></td>
+<td class="top">"<a href="https://doi.org/10.1007%2F3-540-49677-7_30">Designated Verifier Proofs and Their Applications</a>", n.d..</td>
 </tr>
 <tr>
 <td class="reference"><b id="keyagreement">[keyagreement]</b></td>
