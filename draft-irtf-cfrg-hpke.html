@@ -303,6 +303,9 @@ ul.toc li {
 <link href="#rfc.section.9" rel="Chapter" title="9 Security Considerations">
 <link href="#rfc.section.10" rel="Chapter" title="10 Message Encoding">
 <link href="#rfc.section.11" rel="Chapter" title="11 IANA Considerations">
+<link href="#rfc.section.11.1" rel="Chapter" title="11.1 KEM Identifiers">
+<link href="#rfc.section.11.2" rel="Chapter" title="11.2 KDF Identifiers">
+<link href="#rfc.section.11.3" rel="Chapter" title="11.3 AEAD Identifiers">
 <link href="#rfc.references" rel="Chapter" title="12 References">
 <link href="#rfc.references.1" rel="Chapter" title="12.1 Normative References">
 <link href="#rfc.references.2" rel="Chapter" title="12.2 Informative References">
@@ -436,7 +439,13 @@ ul.toc li {
 </li>
 <li>11.   <a href="#rfc.section.11">IANA Considerations</a>
 </li>
-<li>12.   <a href="#rfc.references">References</a>
+<ul><li>11.1.   <a href="#rfc.section.11.1">KEM Identifiers</a>
+</li>
+<li>11.2.   <a href="#rfc.section.11.2">KDF Identifiers</a>
+</li>
+<li>11.3.   <a href="#rfc.section.11.3">AEAD Identifiers</a>
+</li>
+</ul><li>12.   <a href="#rfc.references">References</a>
 </li>
 <ul><li>12.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
@@ -904,7 +913,7 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <a href="#rfc.section.8">8.</a> <a href="#ciphersuites" id="ciphersuites">Algorithm Identifiers</a>
 </h1>
 <h1 id="rfc.section.8.1">
-<a href="#rfc.section.8.1">8.1.</a> <a href="#key-encapsulation-mechanisms-kems" id="key-encapsulation-mechanisms-kems">Key Encapsulation Mechanisms (KEMs)</a>
+<a href="#rfc.section.8.1">8.1.</a> <a href="#kem-ids" id="kem-ids">Key Encapsulation Mechanisms (KEMs)</a>
 </h1>
 <table cellpadding="3" cellspacing="0" class="tt full center">
 <thead><tr>
@@ -955,7 +964,7 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <p id="rfc.section.8.1.p.1">For the NIST curves P-256 and P-521, the Marshal function of the DH scheme produces the normal (non-compressed) representation of the public key, according to <a href="#SECG" class="xref">[SECG]</a>.  When these curves are used, the recipient of an HPKE ciphertext MUST validate that the ephemeral public key <samp>pkE</samp> is on the curve.  The relevant validation procedures are defined in <a href="#keyagreement" class="xref">[keyagreement]</a></p>
 <p id="rfc.section.8.1.p.2">For the CFRG curves Curve25519 and Curve448, the Marshal function is the identity function, since these curves already use fixed-length octet strings for public keys.</p>
 <h1 id="rfc.section.8.2">
-<a href="#rfc.section.8.2">8.2.</a> <a href="#key-derivation-functions-kdfs" id="key-derivation-functions-kdfs">Key Derivation Functions (KDFs)</a>
+<a href="#rfc.section.8.2">8.2.</a> <a href="#kdf-ids" id="kdf-ids">Key Derivation Functions (KDFs)</a>
 </h1>
 <table cellpadding="3" cellspacing="0" class="tt full center">
 <thead><tr>
@@ -986,7 +995,7 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 </tbody>
 </table>
 <h1 id="rfc.section.8.3">
-<a href="#rfc.section.8.3">8.3.</a> <a href="#authenticated-encryption-with-associated-data-aead-functions" id="authenticated-encryption-with-associated-data-aead-functions">Authenticated Encryption with Associated Data (AEAD) Functions</a>
+<a href="#rfc.section.8.3">8.3.</a> <a href="#aead-ids" id="aead-ids">Authenticated Encryption with Associated Data (AEAD) Functions</a>
 </h1>
 <table cellpadding="3" cellspacing="0" class="tt full center">
 <thead><tr>
@@ -1038,7 +1047,59 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <h1 id="rfc.section.11">
 <a href="#rfc.section.11">11.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.11.p.1">[[ TODO: Make IANA registries for the above ]]</p>
+<p id="rfc.section.11.p.1">This document requests the creation of three new IANA registries:</p>
+<p></p>
+
+<ul>
+<li>HPKE KEM Identifiers</li>
+<li>HPKE KDF Identifiers</li>
+<li>HPKE AEAD Identifiers</li>
+</ul>
+<p id="rfc.section.11.p.3">All of these registries should be under a heading of &#8220;Hybrid Public Key Encryption&#8221;, and administered under a Specification Required policy <a href="#RFC8126" class="xref">[RFC8126]</a></p>
+<h1 id="rfc.section.11.1">
+<a href="#rfc.section.11.1">11.1.</a> <a href="#kem-identifiers" id="kem-identifiers">KEM Identifiers</a>
+</h1>
+<p id="rfc.section.11.1.p.1">The &#8220;HPKE KEM Identifiers&#8221; registry lists identifiers for key encapsulation algorithms defined for use with HPKE.  These are two-byte values, so the maximum possible value is 0xFFFF = 65535.</p>
+<p id="rfc.section.11.1.p.2">Template:</p>
+<p></p>
+
+<ul>
+<li>Value: The two-byte identifier for the algorithm</li>
+<li>KEM: The name of the algorithm</li>
+<li>Nenc: The length in bytes of an encapsulated key produced by the algorithm</li>
+<li>Npk: The length in bytes of a public key for the algorithm</li>
+<li>Reference: Where this algorithm is defined</li>
+</ul>
+<p id="rfc.section.11.1.p.4">Initial contents: Provided in <a href="#kem-ids" class="xref">Section 8.1</a></p>
+<h1 id="rfc.section.11.2">
+<a href="#rfc.section.11.2">11.2.</a> <a href="#kdf-identifiers" id="kdf-identifiers">KDF Identifiers</a>
+</h1>
+<p id="rfc.section.11.2.p.1">The &#8220;HPKE KDF Identifiers&#8221; registry lists identifiers for key derivation functions defined for use with HPKE.  These are two-byte values, so the maximum possible value is 0xFFFF = 65535.</p>
+<p id="rfc.section.11.2.p.2">Template:</p>
+<p></p>
+
+<ul>
+<li>Value: The two-byte identifier for the algorithm</li>
+<li>KDF: The name of the algorithm</li>
+<li>Nh: The length in bytes of the output of the KDF</li>
+<li>Reference: Where this algorithm is defined</li>
+</ul>
+<p id="rfc.section.11.2.p.4">Initial contents: Provided in <a href="#kdf-ids" class="xref">Section 8.2</a></p>
+<h1 id="rfc.section.11.3">
+<a href="#rfc.section.11.3">11.3.</a> <a href="#aead-identifiers" id="aead-identifiers">AEAD Identifiers</a>
+</h1>
+<p id="rfc.section.11.3.p.1">The &#8220;HPKE AEAD Identifiers&#8221; registry lists identifiers for authenticated encryption with associated data (AEAD) algorithms defined for use with HPKE.  These are two-byte values, so the maximum possible value is 0xFFFF = 65535.</p>
+<p id="rfc.section.11.3.p.2">Template:</p>
+<p></p>
+
+<ul>
+<li>Value: The two-byte identifier for the algorithm</li>
+<li>AEAD: The name of the algorithm</li>
+<li>Nk: The length in bytes of a key for this algorithm</li>
+<li>Nn: The length in bytes of a nonce for this algorithm</li>
+<li>Reference: Where this algorithm is defined</li>
+</ul>
+<p id="rfc.section.11.3.p.4">Initial contents: Provided in <a href="#aead-ids" class="xref">Section 8.3</a></p>
 <h1 id="rfc.references">
 <a href="#rfc.references">12.</a> References</h1>
 <h1 id="rfc.references.1">
@@ -1053,6 +1114,11 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <td class="reference"><b id="RFC5116">[RFC5116]</b></td>
 <td class="top">
 <a>McGrew, D.</a>, "<a href="https://tools.ietf.org/html/rfc5116">An Interface and Algorithms for Authenticated Encryption</a>", RFC 5116, DOI 10.17487/RFC5116, January 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8126">[RFC8126]</b></td>
+<td class="top">
+<a>Cotton, M.</a>, <a>Leiba, B.</a> and <a>T. Narten</a>, "<a href="https://tools.ietf.org/html/rfc8126">Guidelines for Writing an IANA Considerations Section in RFCs</a>", BCP 26, RFC 8126, DOI 10.17487/RFC8126, June 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC8174">[RFC8174]</b></td>

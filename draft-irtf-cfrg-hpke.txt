@@ -66,7 +66,7 @@ Internet-Draft                    HPKE                     November 2019
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Requirements Notation . . . . . . . . . . . . . . . . . . . .   3
+   2.  Requirements Notation . . . . . . . . . . . . . . . . . . . .   4
    3.  Security Properties . . . . . . . . . . . . . . . . . . . . .   4
    4.  Notation  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    5.  Cryptographic Dependencies  . . . . . . . . . . . . . . . . .   5
@@ -87,25 +87,25 @@ Table of Contents
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    10. Message Encoding  . . . . . . . . . . . . . . . . . . . . . .  16
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Appendix A.  Test Vectors . . . . . . . . . . . . . . . . . . . .  19
-     A.1.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  19
-       A.1.1.  Base Setup Information  . . . . . . . . . . . . . . .  19
-     A.2.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  20
-       A.2.1.  PSK Setup Information . . . . . . . . . . . . . . . .  20
-     A.3.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  22
-       A.3.1.  Auth Setup Information  . . . . . . . . . . . . . . .  22
-     A.4.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  24
-       A.4.1.  AuthPSK Setup Information . . . . . . . . . . . . . .  24
-     A.5.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  26
-       A.5.1.  AuthPSK Setup Information . . . . . . . . . . . . . .  26
-     A.6.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  28
-       A.6.1.  Base Setup Information  . . . . . . . . . . . . . . .  28
-     A.7.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  30
-       A.7.1.  PSK Setup Information . . . . . . . . . . . . . . . .  30
-     A.8.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  32
+     11.1.  KEM Identifiers  . . . . . . . . . . . . . . . . . . . .  17
+     11.2.  KDF Identifiers  . . . . . . . . . . . . . . . . . . . .  17
+     11.3.  AEAD Identifiers . . . . . . . . . . . . . . . . . . . .  18
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Test Vectors . . . . . . . . . . . . . . . . . . . .  20
+     A.1.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  20
+       A.1.1.  Base Setup Information  . . . . . . . . . . . . . . .  20
+     A.2.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  22
+       A.2.1.  PSK Setup Information . . . . . . . . . . . . . . . .  22
+     A.3.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  24
+       A.3.1.  Auth Setup Information  . . . . . . . . . . . . . . .  24
+     A.4.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305 . . . . . . .  26
+       A.4.1.  AuthPSK Setup Information . . . . . . . . . . . . . .  26
+     A.5.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  28
+       A.5.1.  AuthPSK Setup Information . . . . . . . . . . . . . .  28
+     A.6.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  30
+       A.6.1.  Base Setup Information  . . . . . . . . . . . . . . .  30
 
 
 
@@ -114,16 +114,19 @@ Barnes & Bhargavan         Expires May 7, 2020                  [Page 2]
 Internet-Draft                    HPKE                     November 2019
 
 
-       A.8.1.  Auth Setup Information  . . . . . . . . . . . . . . .  32
-     A.9.  DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  34
-       A.9.1.  Base Setup Information  . . . . . . . . . . . . . . .  34
-     A.10. DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  36
-       A.10.1.  PSK Setup Information  . . . . . . . . . . . . . . .  36
-     A.11. DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  38
-       A.11.1.  Auth Setup Information . . . . . . . . . . . . . . .  38
-     A.12. DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  40
-       A.12.1.  AuthPSK Setup Information  . . . . . . . . . . . . .  40
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  42
+     A.7.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  32
+       A.7.1.  PSK Setup Information . . . . . . . . . . . . . . . .  32
+     A.8.  DHKEM(Curve25519), HKDF-SHA256, AES-GCM-128 . . . . . . .  34
+       A.8.1.  Auth Setup Information  . . . . . . . . . . . . . . .  34
+     A.9.  DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  36
+       A.9.1.  Base Setup Information  . . . . . . . . . . . . . . .  36
+     A.10. DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  38
+       A.10.1.  PSK Setup Information  . . . . . . . . . . . . . . .  38
+     A.11. DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  40
+       A.11.1.  Auth Setup Information . . . . . . . . . . . . . . .  40
+     A.12. DHKEM(P-521), HKDF-SHA512, AES-GCM-256  . . . . . . . . .  42
+       A.12.1.  AuthPSK Setup Information  . . . . . . . . . . . . .  42
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  44
 
 1.  Introduction
 
@@ -157,11 +160,8 @@ Internet-Draft                    HPKE                     November 2019
    with sufficient clarity that they can be interoperably implemented
    and formally verified.
 
-2.  Requirements Notation
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
+
 
 
 
@@ -170,6 +170,11 @@ Barnes & Bhargavan         Expires May 7, 2020                  [Page 3]
 Internet-Draft                    HPKE                     November 2019
 
 
+2.  Requirements Notation
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
    BCP14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
@@ -211,11 +216,6 @@ Internet-Draft                    HPKE                     November 2019
    o  "zero(n)": An all-zero octet string of length "n". "zero(4) =
       0x00000000"
 
-   o  "xor(a,b)": XOR of octet strings; "xor(0xF0F0, 0x1234) = 0xE2C4".
-      It is an error to call this function with two arguments of unequal
-      length.
-
-
 
 
 
@@ -225,6 +225,10 @@ Barnes & Bhargavan         Expires May 7, 2020                  [Page 4]
 
 Internet-Draft                    HPKE                     November 2019
 
+
+   o  "xor(a,b)": XOR of octet strings; "xor(0xF0F0, 0x1234) = 0xE2C4".
+      It is an error to call this function with two arguments of unequal
+      length.
 
 5.  Cryptographic Dependencies
 
@@ -270,10 +274,6 @@ Internet-Draft                    HPKE                     November 2019
          from input keying material "IKM" and an optional octet string
          "salt"
 
-      *  Expand(PRK, info, L): Expand a pseudorandom key "PRK" using
-         optional string "info" into "L" bytes of output keying material
-
-      *  Nh: The output size of the Hash and Extract functions
 
 
 
@@ -281,6 +281,11 @@ Barnes & Bhargavan         Expires May 7, 2020                  [Page 5]
 
 Internet-Draft                    HPKE                     November 2019
 
+
+      *  Expand(PRK, info, L): Expand a pseudorandom key "PRK" using
+         optional string "info" into "L" bytes of output keying material
+
+      *  Nh: The output size of the Hash and Extract functions
 
    o  An AEAD encryption algorithm [RFC5116]:
 
@@ -320,11 +325,6 @@ Internet-Draft                    HPKE                     November 2019
 
    Then we can construct a KEM (which we'll call "DHKEM") in the
    following way:
-
-
-
-
-
 
 
 
@@ -886,9 +886,9 @@ Internet-Draft                    HPKE                     November 2019
 
 11.  IANA Considerations
 
-   [[ TODO: Make IANA registries for the above ]]
+   This document requests the creation of three new IANA registries:
 
-
+   o  HPKE KEM Identifiers
 
 
 
@@ -897,6 +897,83 @@ Barnes & Bhargavan         Expires May 7, 2020                 [Page 16]
 
 Internet-Draft                    HPKE                     November 2019
 
+
+   o  HPKE KDF Identifiers
+
+   o  HPKE AEAD Identifiers
+
+   All of these registries should be under a heading of "Hybrid Public
+   Key Encryption", and administered under a Specification Required
+   policy [RFC8126]
+
+11.1.  KEM Identifiers
+
+   The "HPKE KEM Identifiers" registry lists identifiers for key
+   encapsulation algorithms defined for use with HPKE.  These are two-
+   byte values, so the maximum possible value is 0xFFFF = 65535.
+
+   Template:
+
+   o  Value: The two-byte identifier for the algorithm
+
+   o  KEM: The name of the algorithm
+
+   o  Nenc: The length in bytes of an encapsulated key produced by the
+      algorithm
+
+   o  Npk: The length in bytes of a public key for the algorithm
+
+   o  Reference: Where this algorithm is defined
+
+   Initial contents: Provided in Section 8.1
+
+11.2.  KDF Identifiers
+
+   The "HPKE KDF Identifiers" registry lists identifiers for key
+   derivation functions defined for use with HPKE.  These are two-byte
+   values, so the maximum possible value is 0xFFFF = 65535.
+
+   Template:
+
+   o  Value: The two-byte identifier for the algorithm
+
+   o  KDF: The name of the algorithm
+
+   o  Nh: The length in bytes of the output of the KDF
+
+   o  Reference: Where this algorithm is defined
+
+   Initial contents: Provided in Section 8.2
+
+
+
+
+
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 17]
+
+Internet-Draft                    HPKE                     November 2019
+
+
+11.3.  AEAD Identifiers
+
+   The "HPKE AEAD Identifiers" registry lists identifiers for
+   authenticated encryption with associated data (AEAD) algorithms
+   defined for use with HPKE.  These are two-byte values, so the maximum
+   possible value is 0xFFFF = 65535.
+
+   Template:
+
+   o  Value: The two-byte identifier for the algorithm
+
+   o  AEAD: The name of the algorithm
+
+   o  Nk: The length in bytes of a key for this algorithm
+
+   o  Nn: The length in bytes of a nonce for this algorithm
+
+   o  Reference: Where this algorithm is defined
+
+   Initial contents: Provided in Section 8.3
 
 12.  References
 
@@ -911,6 +988,11 @@ Internet-Draft                    HPKE                     November 2019
               Encryption", RFC 5116, DOI 10.17487/RFC5116, January 2008,
               <https://www.rfc-editor.org/info/rfc5116>.
 
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -920,6 +1002,13 @@ Internet-Draft                    HPKE                     November 2019
    [ANSI]     "Public Key Cryptography for the Financial Services
               Industry -- Key Agreement and Key Transport Using Elliptic
               Curve Cryptography", n.d..
+
+
+
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 18]
+
+Internet-Draft                    HPKE                     November 2019
+
 
    [fiveG]    "Security architecture and procedures for 5G System",
               n.d.,
@@ -944,15 +1033,6 @@ Internet-Draft                    HPKE                     November 2019
    [IEEE]     "IEEE 1363a, Standard Specifications for Public Key
               Cryptography - Amendment 1 -- Additional Techniques",
               n.d..
-
-
-
-
-
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 17]
-
-Internet-Draft                    HPKE                     November 2019
-
 
    [ISO]      "ISO/IEC 18033-2, Information Technology - Security
               Techniques - Encryption Algorithms - Part 2 -- Asymmetric
@@ -979,6 +1059,13 @@ Internet-Draft                    HPKE                     November 2019
               DOI 10.17487/RFC5869, May 2010,
               <https://www.rfc-editor.org/info/rfc5869>.
 
+
+
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 19]
+
+Internet-Draft                    HPKE                     November 2019
+
+
    [RFC6637]  Jivsov, A., "Elliptic Curve Cryptography (ECC) in
               OpenPGP", RFC 6637, DOI 10.17487/RFC6637, June 2012,
               <https://www.rfc-editor.org/info/rfc6637>.
@@ -999,17 +1086,6 @@ Internet-Draft                    HPKE                     November 2019
               Cryptography Group, ver. 2", n.d.,
               <https://secg.org/sec1-v2.pdf>.
 
-
-
-
-
-
-
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 18]
-
-Internet-Draft                    HPKE                     November 2019
-
-
    [TestVectors]
               "HPKE Test Vectors", n.d., <https://github.com/cfrg/draft-
               irtf-cfrg-
@@ -1024,6 +1100,27 @@ Appendix A.  Test Vectors
 A.1.  DHKEM(P-256), HKDF-SHA256, ChaCha20Poly1305
 
 A.1.1.  Base Setup Information
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 20]
+
+Internet-Draft                    HPKE                     November 2019
+
 
 mode: 0
 kemID: 1
@@ -1061,7 +1158,22 @@ A.1.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 21]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1117,7 +1229,7 @@ A.2.1.  PSK Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 20]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 22]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1173,7 +1285,7 @@ A.2.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 21]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 23]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1229,7 +1341,7 @@ A.3.1.  Auth Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 22]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 24]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1285,7 +1397,7 @@ A.3.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 23]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 25]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1341,7 +1453,7 @@ A.4.1.  AuthPSK Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 24]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 26]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1397,7 +1509,7 @@ A.4.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 25]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 27]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1453,7 +1565,7 @@ A.5.1.  AuthPSK Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 26]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 28]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1509,7 +1621,7 @@ A.5.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 27]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 29]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1565,7 +1677,7 @@ A.6.1.  Base Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 28]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 30]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1621,7 +1733,7 @@ A.6.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 29]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 31]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1677,7 +1789,7 @@ A.7.1.  PSK Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 30]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 32]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1733,7 +1845,7 @@ A.7.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 31]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 33]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1789,7 +1901,7 @@ A.8.1.  Auth Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 32]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 34]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1845,7 +1957,7 @@ A.8.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 33]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 35]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1901,7 +2013,7 @@ A.9.1.  Base Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 34]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 36]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -1957,7 +2069,7 @@ A.9.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 35]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 37]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2013,7 +2125,7 @@ A.10.1.  PSK Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 36]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 38]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2069,7 +2181,7 @@ A.10.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 37]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 39]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2125,7 +2237,7 @@ A.11.1.  Auth Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 38]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 40]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2181,7 +2293,7 @@ A.11.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 39]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 41]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2237,7 +2349,7 @@ A.12.1.  AuthPSK Setup Information
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 40]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 42]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2293,7 +2405,7 @@ A.12.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 41]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 43]
 
 Internet-Draft                    HPKE                     November 2019
 
@@ -2349,4 +2461,4 @@ Authors' Addresses
 
 
 
-Barnes & Bhargavan         Expires May 7, 2020                 [Page 42]
+Barnes & Bhargavan         Expires May 7, 2020                 [Page 44]
