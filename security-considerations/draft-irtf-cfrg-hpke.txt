@@ -933,9 +933,7 @@ Internet-Draft                    HPKE                     November 2019
 
    This scheme is really just a re-use of the authentication scheme
    underlying the AEAD algorithm in use, but using the KEM to establish
-   a one-time authentication key from a pair of KEM public keys.  The
-   security of the scheme follows from the authentication security of
-   Auth and AuthPSK modes.
+   a one-time authentication key from a pair of KEM public keys.
 
 10.  Message Encoding
 
@@ -944,6 +942,8 @@ Internet-Draft                    HPKE                     November 2019
    unambiguous encoding mechanism which includes, minimally: the
    encapsulated value "enc", ciphertext value(s) (and order if there are
    multiple), and any info values that are not implicit.
+
+
 
 
 

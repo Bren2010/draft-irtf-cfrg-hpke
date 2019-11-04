@@ -1102,7 +1102,7 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <p id="rfc.section.9.2.p.2">To create such a signature, the initator simply performs a normal HPKE setup in the proper mode, and calls the Seal method on the resulting context with an empty plaintext value and the content to be signed as AAD.  This produces an encoded key <samp>enc</samp> and a ciphertext value that contains only the AAD tag.</p>
 <p id="rfc.section.9.2.p.3">For example, using DHKEM-X25519 and AES-128-GCM, this would produce a 48-byte signature comprising a 32-byte ephemeral X25519 key and a 16-byte GCM tag.</p>
 <p id="rfc.section.9.2.p.4">To verify such a signature, the receiver performs the corresponding HPKE setup and calls Open with the provided ciphertext.  If the AEAD authentication passes, then the signature is valid.</p>
-<p id="rfc.section.9.2.p.5">This scheme is really just a re-use of the authentication scheme underlying the AEAD algorithm in use, but using the KEM to establish a one-time authentication key from a pair of KEM public keys.  The security of the scheme follows from the authentication security of Auth and AuthPSK modes.</p>
+<p id="rfc.section.9.2.p.5">This scheme is really just a re-use of the authentication scheme underlying the AEAD algorithm in use, but using the KEM to establish a one-time authentication key from a pair of KEM public keys.</p>
 <h1 id="rfc.section.10">
 <a href="#rfc.section.10">10.</a> <a href="#message-encoding" id="message-encoding">Message Encoding</a>
 </h1>
