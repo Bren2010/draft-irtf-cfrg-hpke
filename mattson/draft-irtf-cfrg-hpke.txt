@@ -919,7 +919,7 @@ Internet-Draft                    HPKE                      January 2020
       mode_base and mode_auth, a given ciphertext can be decrypted if
       the recipient's public encryption key is compromised.  In mode_psk
       and mode_auth_psk, a given ciphertext can be decrypted if the
-      recipient's public encryption key and the psk are compromised.
+      recipient's public encryption key and the PSK are compromised.
 
 9.2.  Metadata Protection
 
