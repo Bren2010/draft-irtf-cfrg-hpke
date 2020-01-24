@@ -43,7 +43,7 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2020-01-23T03:17:10Z",
-    "updated_at": "2020-01-23T03:17:10Z",
+    "updated_at": "2020-01-24T15:25:09Z",
     "closed_at": null,
     "author_association": "COLLABORATOR",
     "pull_request": {
@@ -88,7 +88,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -97,8 +97,8 @@
     "milestone": null,
     "comments": 1,
     "created_at": "2020-01-23T03:02:30Z",
-    "updated_at": "2020-01-23T03:17:51Z",
-    "closed_at": null,
+    "updated_at": "2020-01-23T17:21:16Z",
+    "closed_at": "2020-01-23T17:21:15Z",
     "author_association": "COLLABORATOR",
     "pull_request": {
       "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/32",
@@ -142,7 +142,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -151,8 +151,8 @@
     "milestone": null,
     "comments": 1,
     "created_at": "2020-01-23T02:59:44Z",
-    "updated_at": "2020-01-23T03:18:24Z",
-    "closed_at": null,
+    "updated_at": "2020-01-23T17:20:23Z",
+    "closed_at": "2020-01-23T17:20:23Z",
     "author_association": "COLLABORATOR",
     "pull_request": {
       "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/31",
@@ -213,10 +213,10 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2020-01-20T16:22:38Z",
-    "updated_at": "2020-01-23T02:57:50Z",
+    "updated_at": "2020-01-23T21:23:21Z",
     "closed_at": null,
     "author_association": "COLLABORATOR",
-    "body": "If receivers don't validate ephemeral keys (point on the curve, and in the right subgroup), what can go wrong?"
+    "body": "If receivers don't validate ephemeral keys (point on the curve, and in the right subgroup), what can go wrong? An active and malicious initiator could, for example, use that to learn the responder's private key: https://safecurves.cr.yp.to/twist.html"
   },
   {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/29",
@@ -602,7 +602,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -611,8 +611,8 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2019-11-27T19:46:50Z",
-    "updated_at": "2020-01-23T17:16:11Z",
-    "closed_at": null,
+    "updated_at": "2020-01-23T17:16:35Z",
+    "closed_at": "2020-01-23T17:16:35Z",
     "author_association": "COLLABORATOR",
     "pull_request": {
       "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/23",
@@ -712,7 +712,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -721,8 +721,8 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2019-11-12T00:06:37Z",
-    "updated_at": "2019-11-12T00:06:37Z",
-    "closed_at": null,
+    "updated_at": "2020-01-23T17:20:23Z",
+    "closed_at": "2020-01-23T17:20:23Z",
     "author_association": "CONTRIBUTOR",
     "body": "Both the constant `mode_psk_auth` and function names like `SetupAuthPSKR` are used. That's inconsistent because the order of `psk` and `auth` is different. Suggestion: change the constant to be `mode_auth_psk`, because there are more function names that would need to be changed otherwise."
   },
@@ -816,7 +816,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -825,8 +825,8 @@
     "milestone": null,
     "comments": 1,
     "created_at": "2019-11-04T17:52:16Z",
-    "updated_at": "2020-01-23T03:01:59Z",
-    "closed_at": null,
+    "updated_at": "2020-01-23T17:21:15Z",
+    "closed_at": "2020-01-23T17:21:15Z",
     "author_association": "COLLABORATOR",
     "body": "In the current draft (looking at branch master):\r\n\r\ndef KeySchedule(mode, pkRm, zz, enc, info, psk, pskID, pkIm):\r\n  VerifyMode(mode, psk, pskID, pkI)\r\n\r\n  pkRm = Marshal(pkR)\r\npkRm is given as parameter to KeySchedule but is calculated from pkR inside (suggestion: remove the line calculating it)\r\npkI is passed to VerifyMode, should be pkIm.\r\n\r\nFrom @dwd and @blipp "
   },
