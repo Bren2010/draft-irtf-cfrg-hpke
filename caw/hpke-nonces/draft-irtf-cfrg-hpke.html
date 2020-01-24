@@ -1728,9 +1728,9 @@ overflows.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 or decryption operation increments the sequence number for the context
 in use.  The Initiator's context MUST be used for encryption only. Similarly,
 the Responder's context MUST be used for decryption only. Higher-level
-protocols built on HPKE which require bidirectional encryption can use the
-Export interface to derive separate read and write keys and nonces.
-See <a href="#hpke-export" class="xref">Section 6.3</a> for more details.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
+protocols re-using the HPKE key exchange for more general purposes can
+derive separate keying material as needed using use the Export interface;
+see <a href="#hpke-export" class="xref">Section 6.3</a> for more details.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 <p id="section-6.2-6">It is up to the application to ensure that encryptions and
 decryptions are done in the proper sequence, so that encryption
 and decryption nonces align. If a Seal or Open operation would cause the <code>seq</code>
