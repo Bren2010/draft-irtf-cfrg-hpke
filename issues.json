@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/34",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/34/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/34/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/34/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/34",
+    "id": 556403111,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzY4MTc0NTE0",
+    "number": 34,
+    "title": "Unify terminology around Initiator and Responder.",
+    "user": {
+      "login": "chris-wood",
+      "id": 2172048,
+      "node_id": "MDQ6VXNlcjIxNzIwNDg=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2172048?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/chris-wood",
+      "html_url": "https://github.com/chris-wood",
+      "followers_url": "https://api.github.com/users/chris-wood/followers",
+      "following_url": "https://api.github.com/users/chris-wood/following{/other_user}",
+      "gists_url": "https://api.github.com/users/chris-wood/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/chris-wood/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/chris-wood/subscriptions",
+      "organizations_url": "https://api.github.com/users/chris-wood/orgs",
+      "repos_url": "https://api.github.com/users/chris-wood/repos",
+      "events_url": "https://api.github.com/users/chris-wood/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/chris-wood/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-01-28T18:57:33Z",
+    "updated_at": "2020-01-28T18:58:15Z",
+    "closed_at": null,
+    "author_association": "COLLABORATOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/34",
+      "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/34",
+      "diff_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/34.diff",
+      "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/34.patch"
+    },
+    "body": "We used terms such as sender, initiator, receiver, recipient, and responder interchangeably. Let's simplify the vocabulary."
+  },
+  {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/33",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
     "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/33/labels{/name}",
@@ -34,7 +88,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -43,8 +97,8 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2020-01-23T03:17:10Z",
-    "updated_at": "2020-01-24T15:25:09Z",
-    "closed_at": null,
+    "updated_at": "2020-01-24T15:36:44Z",
+    "closed_at": "2020-01-24T15:36:44Z",
     "author_association": "COLLABORATOR",
     "pull_request": {
       "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/33",
@@ -252,7 +306,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": {
       "login": "chris-wood",
@@ -299,8 +353,8 @@
     "milestone": null,
     "comments": 2,
     "created_at": "2020-01-20T15:23:09Z",
-    "updated_at": "2020-01-20T16:52:55Z",
-    "closed_at": null,
+    "updated_at": "2020-01-24T15:36:44Z",
+    "closed_at": "2020-01-24T15:36:44Z",
     "author_association": "COLLABORATOR",
     "body": "There's currently a single sequence number space that's incremented by 1 for each message encrypted. This implies that only the initiator can encrypt messages to the receiver, else we risk key/nonce re-use. We should be clear about this in the draft!"
   },
@@ -1567,7 +1621,10 @@
       "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/5.patch"
     },
     "body": "Many applications may not need to use an encryption context for more than one message.\r\nThe current separation therefore adds complexity to clients which do not wrap\r\nthe Setup+Seal pattern in a single function. This change adds such a helper wrapper."
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/4",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
@@ -1621,10 +1678,7 @@
       "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/4.patch"
     },
     "body": "@bifurcation please have a look!\r\n\r\ncc @FredericJacobs, too."
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/3",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
