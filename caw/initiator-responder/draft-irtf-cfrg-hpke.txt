@@ -5,8 +5,8 @@
 Network Working Group                                        R.L. Barnes
 Internet-Draft                                                     Cisco
 Intended status: Informational                              K. Bhargavan
-Expires: 31 July 2020                                              Inria
-                                                         28 January 2020
+Expires: 2 August 2020                                             Inria
+                                                         30 January 2020
 
 
                       Hybrid Public Key Encryption
@@ -16,7 +16,7 @@ Abstract
 
    This document describes a scheme for hybrid public-key encryption
    (HPKE).  This scheme provides authenticated public key encryption of
-   arbitrary-sized plaintexts for a Responder public key.  HPKE works
+   arbitrary-sized plaintexts for a responder public key.  HPKE works
    for any combination of an asymmetric key encapsulation mechanism
    (KEM), key derivation function (KDF), and authenticated encryption
    with additional data (AEAD) encryption function.  We provide
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 July 2020.
+   This Internet-Draft will expire on 2 August 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 1]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 1]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 2]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 2]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -165,7 +165,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 3]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 3]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -221,7 +221,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 4]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 4]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -277,7 +277,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 5]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 5]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -333,7 +333,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 6]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 6]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -375,7 +375,7 @@ Internet-Draft                    HPKE                      January 2020
 6.  Hybrid Public Key Encryption
 
    In this section, we define a few HPKE variants.  All variants take a
-   Responder public key and a sequence of plaintexts "pt", and produce
+   responder public key and a sequence of plaintexts "pt", and produce
    an encapsulated key "enc" and a sequence of ciphertexts "ct".  These
    outputs are constructed so that only the holder of the private key
    corresponding to "pkR" can decapsulate the key from "enc" and decrypt
@@ -389,7 +389,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 7]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 7]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -414,8 +414,8 @@ Internet-Draft                    HPKE                      January 2020
 
    All of these cases follow the same basic two-step pattern:
 
-   1.  Set up an encryption context that is shared between the Initiator
-       and the Responder
+   1.  Set up an encryption context that is shared between the initiator
+       and the responder
 
    2.  Use that context to encrypt or decrypt content
 
@@ -425,7 +425,7 @@ Internet-Draft                    HPKE                      January 2020
 
    The constructions described here presume that the relevant non-
    private parameters ("enc", "pskID", etc.) are transported between the
-   Initiator and the Responder by some application making use of HPKE.
+   initiator and the responder by some application making use of HPKE.
 
    The procedures described in this session are laid out in a Python-
    like pseudocode.  The algorithms in use are left implicit.
@@ -436,16 +436,16 @@ Internet-Draft                    HPKE                      January 2020
    schedule that translates the protocol inputs into an encryption
    context.  The key schedule inputs are as follows:
 
-   *  "pkR" - The Responder's public key
+   *  "pkR" - The responder's public key
 
    *  "zz" - A shared secret generated via the KEM for this transaction
 
-   *  "enc" - An encapsulated key produced by the KEM for the Responder
+   *  "enc" - An encapsulated key produced by the KEM for the responder
 
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 8]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 8]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -453,13 +453,13 @@ Internet-Draft                    HPKE                      January 2020
    *  "info" - Application-supplied information (optional; default value
       "")
 
-   *  "psk" - A pre-shared secret held by both the Initiator and the
-      Responder (optional; default value "zero(Nh)").
+   *  "psk" - A pre-shared secret held by both the initiator and the
+      responder (optional; default value "zero(Nh)").
 
    *  "pskID" - An identifier for the PSK (optional; default value """ =
       zero(0)"
 
-   *  "pkI" - The Initiator's public key (optional; default value
+   *  "pkI" - The initiator's public key (optional; default value
       "zero(Npk)")
 
    The "psk" and "pskID" fields MUST appear together or not at all.
@@ -467,11 +467,11 @@ Internet-Draft                    HPKE                      January 2020
    other MUST be set to a non-default value.
 
    The key and nonce computed by this algorithm have the property that
-   they are only known to the holder of the Responder private key, and
+   they are only known to the holder of the responder private key, and
    the party that ran the KEM to generate "zz" and "enc".  If the "psk"
-   and "pskID" arguments are provided, then the Responder is assured
-   that the Initiator held the PSK.  If the "pkIm" argument is provided,
-   then the Responder is assumed that the Initiator held the
+   and "pskID" arguments are provided, then the responder is assured
+   that the initiator held the PSK.  If the "pkIm" argument is provided,
+   then the responder is assumed that the initiator held the
    corresponding private key (assuming that "zz" and "enc" were
    generated using the AuthEncap / AuthDecap methods; see below).
 
@@ -501,7 +501,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                  [Page 9]
+Barnes & Bhargavan        Expires 2 August 2020                 [Page 9]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -557,7 +557,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 10]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 10]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -604,8 +604,8 @@ Internet-Draft                    HPKE                      January 2020
 
 6.1.2.  Authentication using a Pre-Shared Key
 
-   This variant extends the base mechanism by allowing the Responder to
-   authenticate that the Initiator possessed a given pre-shared key
+   This variant extends the base mechanism by allowing the responder to
+   authenticate that the initiator possessed a given pre-shared key
    (PSK).  We assume that both parties have been provisioned with both
    the PSK value "psk" and another octet string "pskID" that is used to
    identify which PSK should be used.
@@ -613,7 +613,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 11]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 11]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -626,7 +626,7 @@ Internet-Draft                    HPKE                      January 2020
       to the KDF
 
    This mechanism is not suitable for use with a low-entropy password as
-   the PSK.  A malicious Responder that does not possess the PSK can use
+   the PSK.  A malicious responder that does not possess the PSK can use
    decryption of a plaintext as an oracle for performing offline
    dictionary attacks.
 
@@ -642,34 +642,34 @@ Internet-Draft                    HPKE                      January 2020
 
 6.1.3.  Authentication using an Asymmetric Key
 
-   This variant extends the base mechanism by allowing the Responder to
-   authenticate that the Initiator possessed a given KEM private key.
+   This variant extends the base mechanism by allowing the responder to
+   authenticate that the initiator possessed a given KEM private key.
    This assurance is based on the assumption that "AuthDecap(enc, skR,
    pkI)" produces the correct shared secret only if the encapsulated
    value "enc" was produced by "AuthEncap(pkR, skI)", where "skI" is the
    private key corresponding to "pkI".  In other words, only two people
-   could have produced this secret, so if the Responder is one, then the
-   Initiator must be the other.
+   could have produced this secret, so if the responder is one, then the
+   initiator must be the other.
 
    The primary differences from the base case are:
 
    *  The calls to "Encap" and "Decap" are replaced with calls to
       "AuthEncap" and "AuthDecap".
 
-   *  The Initiator public key is added to the context string
+   *  The initiator public key is added to the context string
 
    Obviously, this variant can only be used with a KEM that provides
    "AuthEncap()" and "AuthDecap()" procedures.
 
-   This mechanism authenticates only the key pair of the Initiator, not
+   This mechanism authenticates only the key pair of the initiator, not
    any other identity.  If an application wishes to authenticate some
-   other identity for the Initiator (e.g., an email address or domain
+   other identity for the initiator (e.g., an email address or domain
    name), then this identity should be included in the "info" parameter
    to avoid unknown key share attacks.
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 12]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 12]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -725,7 +725,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 13]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 13]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -741,10 +741,10 @@ Internet-Draft                    HPKE                      January 2020
    left with zero), but MUST return an error if the sequence number
    overflows.
 
-   Encryption is unidirectional from Initiator to Responder.  Each
+   Encryption is unidirectional from initiator to responder.  Each
    encryption or decryption operation increments the sequence number for
-   the context in use.  The Initiator's context MUST be used for
-   encryption only.  Similarly, the Responder's context MUST be used for
+   the context in use.  The initiator's context MUST be used for
+   encryption only.  Similarly, the responder's context MUST be used for
    decryption only.  Higher-level protocols re-using the HPKE key
    exchange for more general purposes can derive separate keying
    material as needed using use the Export interface; see Section 6.3
@@ -781,7 +781,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 14]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 14]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -801,7 +801,7 @@ Internet-Draft                    HPKE                      January 2020
 7.  Single-Shot APIs
 
    In many cases, applications encrypt only a single message to a
-   Responder's public key.  This section provides templates for HPKE
+   responder's public key.  This section provides templates for HPKE
    APIs that implement stateless "single-shot" encryption and decryption
    using APIs specified in Section 6.1.1 and Section 6.2:
 
@@ -837,7 +837,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 15]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 15]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -865,7 +865,7 @@ Internet-Draft                    HPKE                      January 2020
    For the NIST curves P-256 and P-521, the Marshal function of the DH
    scheme produces the normal (non-compressed) representation of the
    public key, according to [SECG].  When these curves are used, the
-   Responder of an HPKE ciphertext MUST validate that the ephemeral
+   responder of an HPKE ciphertext MUST validate that the ephemeral
    public key "pkE" is on the curve.  The relevant validation procedures
    are defined in [keyagreement]
 
@@ -893,7 +893,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 16]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 16]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -926,8 +926,8 @@ Internet-Draft                    HPKE                      January 2020
    not provide several features that a more high-level protocol might
    provide, for example:
 
-   *  Downgrade prevention - HPKE assumes that the Initiator and
-      Responder agree on what algorithms to use.  Depending on how these
+   *  Downgrade prevention - HPKE assumes that the initiator and
+      responder agree on what algorithms to use.  Depending on how these
       algorithms are negotiated, it may be possible for an intermediary
       to force the two parties to use suboptimal algorithms.
 
@@ -939,9 +939,9 @@ Internet-Draft                    HPKE                      January 2020
 
    *  Forward secrecy - HPKE ciphertexts are not forward-secure.  In
       mode_base and mode_auth, a given ciphertext can be decrypted if
-      the Responder's public encryption key is compromised.  In mode_psk
+      the responder's public encryption key is compromised.  In mode_psk
       and mode_auth_psk, a given ciphertext can be decrypted if the
-      Responder's public encryption key and the PSK are compromised.
+      responder's public encryption key and the PSK are compromised.
 
 
 
@@ -949,7 +949,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 17]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 17]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -957,11 +957,11 @@ Internet-Draft                    HPKE                      January 2020
 9.2.  Metadata Protection
 
    The authenticated modes of HPKE (PSK, Auth, AuthPSK) require that the
-   Responder know what key material to use for the Initiator.  This can
+   responder know what key material to use for the initiator.  This can
    be signaled in applications by sending the PSK ID ("pskID" above)
-   and/or the Initiator's public key ("pkI").  However, these values
+   and/or the initiator's public key ("pkI").  However, these values
    themselves might be considered sensitive, since in a given
-   application context, they might identify the Initiator.
+   application context, they might identify the initiator.
 
    An application that wishes to protect these metadata values without
    requiring further provisioning of keys can use an additional instance
@@ -972,7 +972,7 @@ Internet-Draft                    HPKE                      January 2020
    values.
 
    The cost of this approach is an additional KEM operation each for the
-   Initiator and the Responder.  A potential lower-cost approach
+   initiator and the responder.  A potential lower-cost approach
    (involving only symmetric operations) would be available if the
    nonce-protection schemes in [BNT19] could be extended to cover other
    metadata.  However, this construction would require further analysis.
@@ -981,11 +981,11 @@ Internet-Draft                    HPKE                      January 2020
 
    The Auth and AuthPSK modes HPKE can be used to construct a
    lightweight "designated-verifier signature" scheme [JKR96], in the
-   sense that the message is authenticated as coming from the Initiator,
-   but the only party who can verify the authentication is the Responder
+   sense that the message is authenticated as coming from the initiator,
+   but the only party who can verify the authentication is the responder
    (the holder of "skR").
 
-   To create such a signature, the Initiator simply performs a normal
+   To create such a signature, the initiator simply performs a normal
    HPKE setup in the proper mode, and calls the Seal method on the
    resulting context with an empty plaintext value and the content to be
    signed as AAD.  This produces an encoded key "enc" and a ciphertext
@@ -995,7 +995,7 @@ Internet-Draft                    HPKE                      January 2020
    48-byte signature comprising a 32-byte ephemeral X25519 key and a
    16-byte GCM tag.
 
-   To verify such a signature, the Responder performs the corresponding
+   To verify such a signature, the responder performs the corresponding
    HPKE setup and calls Open with the provided ciphertext.  If the AEAD
    authentication passes, then the signature is valid.
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 18]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 18]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 19]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 19]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 20]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 20]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 21]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 21]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft                    HPKE                      January 2020
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 22]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 22]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1285,7 +1285,7 @@ A.1.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 23]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 23]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1341,7 +1341,7 @@ A.2.1.  Base Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 24]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 24]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1397,7 +1397,7 @@ A.2.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 25]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 25]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1453,7 +1453,7 @@ A.3.1.  PSK Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 26]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 26]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1509,7 +1509,7 @@ A.3.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 27]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 27]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1565,7 +1565,7 @@ A.4.1.  Auth Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 28]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 28]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1621,7 +1621,7 @@ A.4.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 29]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 29]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1677,7 +1677,7 @@ A.5.1.  Auth Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 30]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 30]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1733,7 +1733,7 @@ A.5.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 31]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 31]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1789,7 +1789,7 @@ A.6.1.  AuthPSK Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 32]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 32]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1845,7 +1845,7 @@ A.6.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 33]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 33]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1901,7 +1901,7 @@ A.7.1.  Base Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 34]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 34]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -1957,7 +1957,7 @@ A.7.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 35]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 35]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2013,7 +2013,7 @@ A.8.1.  PSK Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 36]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 36]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2069,7 +2069,7 @@ A.8.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 37]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 37]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2125,7 +2125,7 @@ A.9.1.  Base Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 38]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 38]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2181,7 +2181,7 @@ A.9.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 39]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 39]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2237,7 +2237,7 @@ A.10.1.  PSK Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 40]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 40]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2293,7 +2293,7 @@ A.10.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 41]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 41]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2349,7 +2349,7 @@ A.11.1.  Auth Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 42]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 42]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2405,7 +2405,7 @@ A.11.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 43]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 43]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2461,7 +2461,7 @@ A.12.1.  AuthPSK Setup Information
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 44]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 44]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2517,7 +2517,7 @@ A.12.1.1.  Encryptions
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 45]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 45]
 
 Internet-Draft                    HPKE                      January 2020
 
@@ -2573,4 +2573,4 @@ Authors' Addresses
 
 
 
-Barnes & Bhargavan        Expires 31 July 2020                 [Page 46]
+Barnes & Bhargavan        Expires 2 August 2020                [Page 46]
