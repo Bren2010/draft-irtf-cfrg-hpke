@@ -10,7 +10,7 @@
 <meta content="
        This document describes a scheme for hybrid public-key encryption
 (HPKE).  This scheme provides authenticated public key encryption of
-arbitrary-sized plaintexts for a responder public key. HPKE works
+arbitrary-sized plaintexts for a recipient public key. HPKE works
 for any combination of an asymmetric key encapsulation mechanism
 (KEM), key derivation function (KDF), and authenticated encryption
 with additional data (AEAD) encryption function. We provide
@@ -864,7 +864,7 @@ table.left {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document describes a scheme for hybrid public-key encryption
 (HPKE).  This scheme provides authenticated public key encryption of
-arbitrary-sized plaintexts for a responder public key. HPKE works
+arbitrary-sized plaintexts for a recipient public key. HPKE works
 for any combination of an asymmetric key encapsulation mechanism
 (KEM), key derivation function (KDF), and authenticated encryption
 with additional data (AEAD) encryption function. We provide
@@ -1203,7 +1203,7 @@ operations, roles, and behaviors of HPKE:<a href="#section-4-1" class="pilcrow">
 <ul>
 <li id="section-4-2.1">Initiator (I): Sender of an encrypted message.<a href="#section-4-2.1" class="pilcrow">¶</a>
 </li>
-<li id="section-4-2.2">Responder (R): Receiver of an encrypted message.<a href="#section-4-2.2" class="pilcrow">¶</a>
+<li id="section-4-2.2">Responder (R): Recipient of an encrypted message.<a href="#section-4-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-4-2.3">Ephemeral (E): A fresh random value meant for one-time use.<a href="#section-4-2.3" class="pilcrow">¶</a>
 </li>
@@ -1387,7 +1387,7 @@ big-endian integer<a href="#section-5.1-6.2" class="pilcrow">¶</a>
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-hybrid-public-key-encryptio" class="section-name selfRef">Hybrid Public Key Encryption</a>
       </h2>
 <p id="section-6-1">In this section, we define a few HPKE variants.  All variants take a
-responder public key and a sequence of plaintexts <code>pt</code>, and produce an
+recipient public key and a sequence of plaintexts <code>pt</code>, and produce an
 encapsulated key <code>enc</code> and a sequence of ciphertexts <code>ct</code>.  These outputs are
 constructed so that only the holder of the private key corresponding
 to <code>pkR</code> can decapsulate the key from <code>enc</code> and decrypt the
@@ -1429,8 +1429,8 @@ will be used to distinguish between modes:<a href="#section-6-2" class="pilcrow"
       </table>
 <p id="section-6-4">All of these cases follow the same basic two-step pattern:<a href="#section-6-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal" id="section-6-5">
-        <li id="section-6-5.1">Set up an encryption context that is shared between the initiator
-and the responder<a href="#section-6-5.1" class="pilcrow">¶</a>
+        <li id="section-6-5.1">Set up an encryption context that is shared between the sender
+and the recipient<a href="#section-6-5.1" class="pilcrow">¶</a>
 </li>
 <li id="section-6-5.2">Use that context to encrypt or decrypt content<a href="#section-6-5.2" class="pilcrow">¶</a>
 </li>
@@ -1439,8 +1439,8 @@ and the responder<a href="#section-6-5.1" class="pilcrow">¶</a>
 the nonces used so that the same nonce is not used with multiple
 plaintexts.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <p id="section-6-7">The constructions described here presume that the relevant non-private
-parameters (<code>enc</code>, <code>pskID</code>, etc.) are transported between the initiator and the
-responder by some application making use of HPKE.<a href="#section-6-7" class="pilcrow">¶</a></p>
+parameters (<code>enc</code>, <code>pskID</code>, etc.) are transported between the sender and the
+recipient by some application making use of HPKE.<a href="#section-6-7" class="pilcrow">¶</a></p>
 <p id="section-6-8">The procedures described in this session are laid out in a
 Python-like pseudocode.  The algorithms in use are left implicit.<a href="#section-6-8" class="pilcrow">¶</a></p>
 <div id="creating-the-encryption-context">
@@ -1453,28 +1453,28 @@ key schedule that translates the protocol inputs into an encryption
 context. The key schedule inputs are as follows:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-6.1-2.1">
-            <code>pkR</code> - The responder's public key<a href="#section-6.1-2.1" class="pilcrow">¶</a>
+            <code>pkR</code> - The recipient's public key<a href="#section-6.1-2.1" class="pilcrow">¶</a>
 </li>
 <li id="section-6.1-2.2">
             <code>zz</code> - A shared secret generated via the KEM for this transaction<a href="#section-6.1-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-6.1-2.3">
-            <code>enc</code> - An encapsulated key produced by the KEM for the responder<a href="#section-6.1-2.3" class="pilcrow">¶</a>
+            <code>enc</code> - An encapsulated key produced by the KEM for the recipient<a href="#section-6.1-2.3" class="pilcrow">¶</a>
 </li>
 <li id="section-6.1-2.4">
             <code>info</code> - Application-supplied information (optional; default value
 "")<a href="#section-6.1-2.4" class="pilcrow">¶</a>
 </li>
 <li id="section-6.1-2.5">
-            <code>psk</code> - A pre-shared secret held by both the initiator
-and the responder (optional; default value <code>zero(Nh)</code>).<a href="#section-6.1-2.5" class="pilcrow">¶</a>
+            <code>psk</code> - A pre-shared secret held by both the sender
+and the recipient (optional; default value <code>zero(Nh)</code>).<a href="#section-6.1-2.5" class="pilcrow">¶</a>
 </li>
 <li id="section-6.1-2.6">
             <code>pskID</code> - An identifier for the PSK (optional; default
 value <code>"" = zero(0)</code><a href="#section-6.1-2.6" class="pilcrow">¶</a>
 </li>
 <li id="section-6.1-2.7">
-            <code>pkI</code> - The initiator's public key (optional; default
+            <code>pkI</code> - The sender's public key (optional; default
 value <code>zero(Npk)</code>)<a href="#section-6.1-2.7" class="pilcrow">¶</a>
 </li>
 </ul>
@@ -1482,11 +1482,11 @@ value <code>zero(Npk)</code>)<a href="#section-6.1-2.7" class="pilcrow">¶</a>
 That is, if a non-default value is provided for one of them, then
 the other MUST be set to a non-default value.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <p id="section-6.1-4">The key and nonce computed by this algorithm have the property that
-they are only known to the holder of the responder private key, and
+they are only known to the holder of the recipient private key, and
 the party that ran the KEM to generate <code>zz</code> and <code>enc</code>.  If the <code>psk</code>
-and <code>pskID</code> arguments are provided, then the responder is assured
-that the initiator held the PSK.  If the <code>pkIm</code> argument is
-provided, then the responder is assumed that the initiator held the
+and <code>pskID</code> arguments are provided, then the recipient is assured
+that the sender held the PSK.  If the <code>pkIm</code> argument is
+provided, then the recipient is assumed that the sender held the
 corresponding private key (assuming that <code>zz</code> and <code>enc</code> were
 generated using the AuthEncap / AuthDecap methods; see below).<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <p id="section-6.1-5">The HPKE algorithm identifiers, i.e., the KEM <code>kem_id</code>, KDF <code>kdf_id</code>, and
@@ -1587,8 +1587,8 @@ def SetupBaseR(enc, skR, info):
           <h4 id="name-authentication-using-a-pre-">
 <a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-authentication-using-a-pre-" class="section-name selfRef">Authentication using a Pre-Shared Key</a>
           </h4>
-<p id="section-6.1.2-1">This variant extends the base mechanism by allowing the responder
-to authenticate that the initiator possessed a given pre-shared key
+<p id="section-6.1.2-1">This variant extends the base mechanism by allowing the recipient
+to authenticate that the sender possessed a given pre-shared key
 (PSK).  We assume that both parties have been provisioned with both
 the PSK value <code>psk</code> and another octet string <code>pskID</code> that is used to
 identify which PSK should be used.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
@@ -1601,7 +1601,7 @@ to the KDF<a href="#section-6.1.2-3.2" class="pilcrow">¶</a>
 </li>
 </ul>
 <p id="section-6.1.2-4">This mechanism is not suitable for use with a low-entropy password
-as the PSK.  A malicious responder that does not possess the PSK can
+as the PSK.  A malicious recipient that does not possess the PSK can
 use decryption of a plaintext as an oracle for performing offline
 dictionary attacks.<a href="#section-6.1.2-4" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-6.1.2-5">
@@ -1624,28 +1624,28 @@ def SetupPSKR(enc, skR, info, psk, pskID):
           <h4 id="name-authentication-using-an-asy">
 <a href="#section-6.1.3" class="section-number selfRef">6.1.3. </a><a href="#name-authentication-using-an-asy" class="section-name selfRef">Authentication using an Asymmetric Key</a>
           </h4>
-<p id="section-6.1.3-1">This variant extends the base mechanism by allowing the responder
-to authenticate that the initiator possessed a given KEM private key.
+<p id="section-6.1.3-1">This variant extends the base mechanism by allowing the recipient
+to authenticate that the sender possessed a given KEM private key.
 This assurance is based on the assumption that
 <code>AuthDecap(enc, skR, pkI)</code> produces the correct shared secret
 only if the encapsulated value <code>enc</code> was produced by
 <code>AuthEncap(pkR, skI)</code>, where <code>skI</code> is the private key corresponding
 to <code>pkI</code>.  In other words, only two people could have produced this
-secret, so if the responder is one, then the initiator must be the
+secret, so if the recipient is one, then the sender must be the
 other.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.3-2">The primary differences from the base case are:<a href="#section-6.1.3-2" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-6.1.3-3.1">The calls to <code>Encap</code> and <code>Decap</code> are replaced with calls to
 <code>AuthEncap</code> and <code>AuthDecap</code>.<a href="#section-6.1.3-3.1" class="pilcrow">¶</a>
 </li>
-<li id="section-6.1.3-3.2">The initiator public key is added to the context string<a href="#section-6.1.3-3.2" class="pilcrow">¶</a>
+<li id="section-6.1.3-3.2">The sender public key is added to the context string<a href="#section-6.1.3-3.2" class="pilcrow">¶</a>
 </li>
 </ul>
 <p id="section-6.1.3-4">Obviously, this variant can only be used with a KEM that provides
 <code>AuthEncap()</code> and <code>AuthDecap()</code> procedures.<a href="#section-6.1.3-4" class="pilcrow">¶</a></p>
-<p id="section-6.1.3-5">This mechanism authenticates only the key pair of the initiator, not
+<p id="section-6.1.3-5">This mechanism authenticates only the key pair of the sender, not
 any other identity.  If an application wishes to authenticate some
-other identity for the initiator (e.g., an email address or domain
+other identity for the sender (e.g., an email address or domain
 name), then this identity should be included in the <code>info</code> parameter
 to avoid unknown key share attacks.<a href="#section-6.1.3-5" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-6.1.3-6">
@@ -1724,10 +1724,10 @@ big-endian integer of the same length as the nonce.  Implementations
 MAY use a sequence number that is shorter than the nonce (padding on
 the left with zero), but MUST return an error if the sequence number
 overflows.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.2-5">Encryption is unidirectional from initiator to responder. Each encryption
+<p id="section-6.2-5">Encryption is unidirectional from sender to recipient. Each encryption
 or decryption operation increments the sequence number for the context
-in use.  The initiator's context MUST be used for encryption only. Similarly,
-the responder's context MUST be used for decryption only. Higher-level
+in use.  The sender's context MUST be used for encryption only. Similarly,
+the recipient's context MUST be used for decryption only. Higher-level
 protocols re-using the HPKE key exchange for more general purposes can
 derive separate keying material as needed using use the Export interface;
 see <a href="#hpke-export" class="xref">Section 6.3</a> for more details.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
@@ -1786,7 +1786,7 @@ def Context.Export(exporter_context, L):
       <h2 id="name-single-shot-apis">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-single-shot-apis" class="section-name selfRef">Single-Shot APIs</a>
       </h2>
-<p id="section-7-1">In many cases, applications encrypt only a single message to a responder's public key.
+<p id="section-7-1">In many cases, applications encrypt only a single message to a recipient's public key.
 This section provides templates for HPKE APIs that implement stateless "single-shot" encryption
 and decryption using APIs specified in <a href="#hpke-kem" class="xref">Section 6.1.1</a> and <a href="#hpke-dem" class="xref">Section 6.2</a>:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-7-2">
@@ -1897,7 +1897,7 @@ def OpenAuthPSK(enc, skR, info, aad, ct, psk, pskID, pkI):
 <p id="section-8.1-2">For the NIST curves P-256 and P-521, the Marshal function of the DH
 scheme produces the normal (non-compressed) representation of the
 public key, according to <span>[<a href="#SECG" class="xref">SECG</a>]</span>.  When these curves are used, the
-responder of an HPKE ciphertext MUST validate that the ephemeral public
+recipient of an HPKE ciphertext MUST validate that the ephemeral public
 key <code>pkE</code> is on the curve.  The relevant validation procedures are
 defined in <span>[<a href="#keyagreement" class="xref">keyagreement</a>]</span><a href="#section-8.1-2" class="pilcrow">¶</a></p>
 <p id="section-8.1-3">For the CFRG curves Curve25519 and Curve448, the Marshal function is
@@ -2028,7 +2028,7 @@ arise in practice and an advanced use case.<a href="#section-9-1" class="pilcrow
 <p id="section-9.1-1">HPKE is designed to be a fairly low-level primitive, and thus does not provide
 several features that a more high-level protocol might provide, for example:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-9.1-2.1">Downgrade prevention - HPKE assumes that the initiator and responder agree on
+<li id="section-9.1-2.1">Downgrade prevention - HPKE assumes that the sender and recipient agree on
 what algorithms to use.  Depending on how these algorithms are negotiated, it
 may be possible for an intermediary to force the two parties to use
 suboptimal algorithms.<a href="#section-9.1-2.1" class="pilcrow">¶</a>
@@ -2039,9 +2039,9 @@ provides a degree of replay protection within a stream of ciphertexts
 resulting from a given Context.  HPKE provides no other replay protection.<a href="#section-9.1-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-9.1-2.3">Forward secrecy - HPKE ciphertexts are not forward-secure. In mode_base
-and mode_auth, a given ciphertext can be decrypted if the responder's public
+and mode_auth, a given ciphertext can be decrypted if the recipient's public
 encryption key is compromised. In mode_psk and mode_auth_psk, a given
-ciphertext can be decrypted if the responder's public encryption key and the
+ciphertext can be decrypted if the recipient's public encryption key and the
 PSK are compromised.<a href="#section-9.1-2.3" class="pilcrow">¶</a>
 </li>
 </ul>
@@ -2052,19 +2052,19 @@ PSK are compromised.<a href="#section-9.1-2.3" class="pilcrow">¶</a>
         <h3 id="name-metadata-protection">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-metadata-protection" class="section-name selfRef">Metadata Protection</a>
         </h3>
-<p id="section-9.2-1">The authenticated modes of HPKE (PSK, Auth, AuthPSK) require that the responder
-know what key material to use for the initiator.  This can be signaled in
-applications by sending the PSK ID (<code>pskID</code> above) and/or the initiator's public
+<p id="section-9.2-1">The authenticated modes of HPKE (PSK, Auth, AuthPSK) require that the recipient
+know what key material to use for the sender.  This can be signaled in
+applications by sending the PSK ID (<code>pskID</code> above) and/or the sender's public
 key (<code>pkI</code>).  However, these values themselves might be considered sensitive,
-since in a given application context, they might identify the initiator.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+since in a given application context, they might identify the sender.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <p id="section-9.2-2">An application that wishes to protect these metadata values without requiring
 further provisioning of keys can use an additional instance of HPKE, using the
 unauthenticated base mode.  Where the application might have sent <code>(pskID, pkI,
 enc, ciphertext)</code> before, it would now send (enc2, ciphertext2, enc, ciphertext),
 where <code>(enc2, ciphertext2)</code> represent the encryption of the <code>pskID</code> and <code>pkI</code>
 values.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
-<p id="section-9.2-3">The cost of this approach is an additional KEM operation each for the initiator and
-the responder.  A potential lower-cost approach (involving only symmetric
+<p id="section-9.2-3">The cost of this approach is an additional KEM operation each for the sender and
+the recipient.  A potential lower-cost approach (involving only symmetric
 operations) would be available if the nonce-protection schemes in <span>[<a href="#BNT19" class="xref">BNT19</a>]</span>
 could be extended to cover other metadata.  However, this construction would
 require further analysis.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
@@ -2077,15 +2077,15 @@ require further analysis.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-9.3-1">The Auth and AuthPSK modes HPKE can be used to construct a lightweight
 "designated-verifier signature" scheme <span>[<a href="#JKR96" class="xref">JKR96</a>]</span>, in the sense that the message
-is authenticated as coming from the initiator, but the only party who can verify
-the authentication is the responder (the holder of <code>skR</code>).<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<p id="section-9.3-2">To create such a signature, the initiator simply performs a normal HPKE setup in
+is authenticated as coming from the sender, but the only party who can verify
+the authentication is the recipient (the holder of <code>skR</code>).<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">To create such a signature, the sender simply performs a normal HPKE setup in
 the proper mode, and calls the Seal method on the resulting context with an
 empty plaintext value and the content to be signed as AAD.  This produces an
 encoded key <code>enc</code> and a ciphertext value that contains only the AAD tag.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
 <p id="section-9.3-3">For example, using DHKEM-X25519 and AES-128-GCM, this would produce a 48-byte
 signature comprising a 32-byte ephemeral X25519 key and a 16-byte GCM tag.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
-<p id="section-9.3-4">To verify such a signature, the responder performs the corresponding HPKE setup
+<p id="section-9.3-4">To verify such a signature, the recipient performs the corresponding HPKE setup
 and calls Open with the provided ciphertext.  If the AEAD authentication passes,
 then the signature is valid.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
 <p id="section-9.3-5">This scheme re-uses the authentication scheme underlying the AEAD algorithm in
