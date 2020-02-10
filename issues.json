@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/36",
+    "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
+    "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/36/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/36/comments",
+    "events_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/36/events",
+    "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/36",
+    "id": 562293768,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzcyOTE0NzMz",
+    "number": 36,
+    "title": "Size of exporter_secret must be at least Nh, Nk is too small",
+    "user": {
+      "login": "blipp",
+      "id": 138279,
+      "node_id": "MDQ6VXNlcjEzODI3OQ==",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/138279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/blipp",
+      "html_url": "https://github.com/blipp",
+      "followers_url": "https://api.github.com/users/blipp/followers",
+      "following_url": "https://api.github.com/users/blipp/following{/other_user}",
+      "gists_url": "https://api.github.com/users/blipp/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/blipp/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/blipp/subscriptions",
+      "organizations_url": "https://api.github.com/users/blipp/orgs",
+      "repos_url": "https://api.github.com/users/blipp/repos",
+      "events_url": "https://api.github.com/users/blipp/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/blipp/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-02-10T02:47:12Z",
+    "updated_at": "2020-02-10T04:05:07Z",
+    "closed_at": "2020-02-10T04:05:07Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/pulls/36",
+      "html_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/36",
+      "diff_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/36.diff",
+      "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/36.patch"
+    },
+    "body": "Currently, `exporter_secret` is created with Expand at a size of `Nk` octets. It is then used within Context.Export as first argument to another call to Expand. However, for HKDF-Expand, the RFC https://tools.ietf.org/html/rfc5869 defines the first input as follows (emphasis mine):\r\n\r\n```\r\n   Inputs:\r\n      PRK      a pseudorandom key of *at least HashLen* octets\r\n```\r\n\r\n`HashLen` corresponds to `Nh` in the HPKE draft.\r\n\r\nLooking at the definitions of `Nh`, `Nk`, and `Nn` in https://github.com/cfrg/draft-irtf-cfrg-hpke/blob/master/draft-irtf-cfrg-hpke.md#key-derivation-functions-kdfs-kdf-ids, it becomes clear that `Nh >= Nk` and `Nh >= Nn` for all combinations. Thus, to meet the security requirements of HKDF-Expand, `exporter_secret` should be generated with `Nh` bytes and not only with `Nk` bytes.\r\n\r\n(Said differently, `exporter_secret` is not yet the key, but the input to `Expand`)"
+  },
+  {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/35",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
     "labels_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/35/labels{/name}",
@@ -1567,7 +1621,10 @@
       "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/7.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/6",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
@@ -1621,10 +1678,7 @@
       "patch_url": "https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/6.patch"
     },
     "body": "Also, apply a couple editorial fixes.\r\n\r\ncc @bifurcation "
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke/issues/5",
     "repository_url": "https://api.github.com/repos/cfrg/draft-irtf-cfrg-hpke",
